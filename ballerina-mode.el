@@ -101,8 +101,7 @@
    ;; Fonts
         (setq font-lock-defaults '(ballerina-build-font-lock-keywords))   ;; Indentation settings
    (setq-local indent-tabs-mode nil) ; use spaces for indentation
-   (setq-local tab-width 4) ; tabwidth 4 spaces
-   (setq-local electric-indent-inhibit t)) ; Disabel electric indentation
+   (setq-local tab-width 4)) ; tabwidth 4 spaces
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.bal\\'" . ballerina-mode))
