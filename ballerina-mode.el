@@ -19,6 +19,16 @@
 ;;
 ;;; Code:
 
+(defconst ballerina-mode-basic-types
+  '("decimal"
+    "float"
+    "int"
+    "map"
+    "object"
+    "record"
+    "string"
+    "table"
+    "table") "Basic types in ballerina language used for font locking.")
 
 (defconst ballerina-mode-keywords
   '("ascending"
@@ -89,7 +99,8 @@
 
 (defun ballerina-build-font-lock-keywords ()
   (append
-   `((, (concat "\\_<" (regexp-opt ballerina-mode-keywords t) "\\_>") . font-lock-keyword-face))))
+   `((, (concat "\\_<" (regexp-opt ballerina-mode-basic-types t) "\\_>") . font-lock-type-face)
+     (, (concat "\\_<" (regexp-opt ballerina-mode-keywords t) "\\_>") . font-lock-keyword-face))))
 
 ;;;###autoload
 (define-derived-mode ballerina-mode prog-mode "Ballerina"
