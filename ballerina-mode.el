@@ -71,6 +71,10 @@
     "where"
     "while")  "All keywords in the ballerina language.  Used for font locking.")
 
+(defconst ballerina-identifier-regexp "[[:word:][:multibyte:]]+")
+(defconst ballerina-func-regexp (concat "\\_<function\\_>\\s *\\(" ballerina-identifier-regexp "\\)"))
+(defconst ballerina-return-type-regexp (concat "\\_<returns\\_>\\s *\\(" ballerina-identifier-regexp "\\)"))
+
 (defvar ballerina-mode-syntax-table
   (let ((table (make-syntax-table)))
     ;; punctuations
@@ -100,11 +104,13 @@
 (defun ballerina-build-font-lock-keywords ()
   (append
    `((, (concat "\\_<" (regexp-opt ballerina-mode-basic-types t) "\\_>") . font-lock-type-face)
-     (, (concat "\\_<" (regexp-opt ballerina-mode-keywords t) "\\_>") . font-lock-keyword-face))))
+     (, (concat "\\_<" (regexp-opt ballerina-mode-keywords t) "\\_>") . font-lock-keyword-face)
+     (, ballerina-func-regexp 1 font-lock-function-name-face)
+     (, ballerina-return-type-regexp 1 font-lock-type-face))))
 
 ;;;###autoload
 (define-derived-mode ballerina-mode prog-mode "Ballerina"
-   "Ballerina mode is a major mode for editing ballerina files"
+   "Ballerina mode is a major mode for editing ballerina files."
    ;; Syntax highlighting
    :syntax-table ballerina-mode-syntax-table
    ;; keybindings
