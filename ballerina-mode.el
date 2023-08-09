@@ -20,7 +20,8 @@
 ;;; Code:
 
 (defconst ballerina-mode-basic-types
-  '("decimal"
+  '("boolean"
+    "decimal"
     "float"
     "int"
     "map"
@@ -116,7 +117,7 @@
    ;; keybindings
    ;; (define-key ballerina-mode-map (kbd "C-c C-f") 'ballerina-mode-command)
    ;; Fonts
-        (setq font-lock-defaults '(ballerina-build-font-lock-keywords))   ;; Indentation settings
+   (setq font-lock-defaults '(ballerina-build-font-lock-keywords))   ;; Fonts
    (setq-local indent-tabs-mode nil) ; use spaces for indentation
    (setq-local tab-width 4)) ; tabwidth 4 spaces
 
