@@ -1,16 +1,19 @@
 import ballerina/io;
 
 type R record {|
-     int a;
+     int a; // inline comment
      string foo;
 |}
 
 public function main() {
+    string a = string `dlae {4}`
     io:println("Hello, World!");
 }
 
+# block comment
 function foo(int a, int b) returns int {
-    int c = a * b;
+    int c = a * b; // ldalta
+    int d = a / b;
     return c + a + b;
 }
 

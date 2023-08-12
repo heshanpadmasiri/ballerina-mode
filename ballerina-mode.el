@@ -95,24 +95,24 @@
     ;; punctuations
     (modify-syntax-entry ?+ "." table)
     (modify-syntax-entry ?- "." table)
-    (modify-syntax-entry ?/ "." table)
     (modify-syntax-entry ?* "." table)
     (modify-syntax-entry ?% "." table)
     (modify-syntax-entry ?= "." table)
     (modify-syntax-entry ?! "." table)
     (modify-syntax-entry ?< "." table)
     (modify-syntax-entry ?> "." table)
+    (modify-syntax-entry ?* "."  table)
     ;; Strings
     (modify-syntax-entry ?\" "\"" table)
+    (modify-syntax-entry ?`  "\"" table)
     (modify-syntax-entry ?\\ "\\" table)
 
     ;; whitespaces
 
     ;; Comments
-    (modify-syntax-entry ?/  ". 124b" table)
-    (modify-syntax-entry ?*  ". 23n"  table)
-    (modify-syntax-entry ?\n "> b"    table)
-    (modify-syntax-entry ?\^m "> b"   table)
+    (modify-syntax-entry ?/ ". 124b" table)
+    (modify-syntax-entry ?# "< b" table)
+    (modify-syntax-entry ?\n "> b" table)    ; Newline ends a
     table)
   "Syntax definitions and helpers.")
 
