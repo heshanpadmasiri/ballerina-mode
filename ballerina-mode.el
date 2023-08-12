@@ -20,16 +20,30 @@
 ;;; Code:
 
 (defconst ballerina-mode-basic-types
-  '("boolean"
+  '("any"
+    "anydata"
+    "boolean"
+    "byte"
     "decimal"
+    "distinct"
+    "error"
     "float"
+    "function"
+    "future"
+    "handle"
     "int"
+    "json"
     "map"
+    "never"
+    "nil"
     "object"
+    "object"
+    "readonly"
     "record"
+    "stream"
     "string"
     "table"
-    "table") "Basic types in ballerina language used for font locking.")
+    "typedesc") "Basic types in ballerina language used for font locking.")
 
 (defconst ballerina-mode-keywords
   '("ascending"

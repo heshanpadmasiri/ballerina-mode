@@ -14,6 +14,6 @@ function foo(int a, int b) returns int {
     return c + a + b;
 }
 
-function bar(int a, string foo) returns R {
+function bar(int a, string foo) returns R|error {
     return { a, foo };
 }
