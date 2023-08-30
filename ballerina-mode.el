@@ -86,8 +86,9 @@
     "while")  "All keywords in the ballerina language.  Used for font locking.")
 
 (defconst ballerina-identifier-regexp "[[:word:][:multibyte:]]+")
+(defconst ballerina-type-regexp "[[:word:][:multibyte:]|&?]+")
 (defconst ballerina-func-regexp (concat "\\_<function\\_>\\s *\\(" ballerina-identifier-regexp "\\)"))
-(defconst ballerina-return-type-regexp (concat "\\_<returns\\_>\\s *\\(" ballerina-identifier-regexp "\\)"))
+(defconst ballerina-return-type-regexp (concat "\\_<returns\\_>\\s *\\(" ballerina-type-regexp "\\)"))
 
 (defvar ballerina-mode-syntax-table
   (let ((table (make-syntax-table)))

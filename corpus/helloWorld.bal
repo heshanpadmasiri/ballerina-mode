@@ -20,3 +20,7 @@ function foo(int a, int b) returns int {
 function bar(int a, string foo) returns R|error {
     return { a, foo };
 }
+
+function baz(int a, string foo) returns R? {
+    return { a, foo };
+}
