@@ -129,6 +129,15 @@
      (, ballerina-var-type-regexp 2 font-lock-variable-name-face))))
 
 ;;;###autoload
+(defun ballerina-mode-run-tests ()
+  "Run test suite in Ballerina project"
+  (interactive)
+  (let ((user-input (read-string "Enter test selection (leave empty to run all tests): ")))
+    (if (string-empty-p user-input)
+        (compile "bal test")
+      (compile (format "bal test --tests %s" user-input)))))
+
+;;;###autoload
 (define-derived-mode ballerina-mode prog-mode "Ballerina"
    "Ballerina mode is a major mode for editing ballerina files."
    ;; Syntax highlighting
