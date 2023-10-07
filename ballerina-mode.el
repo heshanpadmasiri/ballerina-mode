@@ -65,6 +65,7 @@
     "if"
     "import"
     "in"
+    "is"
     "isolated"
     "join"
     "let"
@@ -129,7 +130,7 @@
      (, ballerina-var-type-regexp 2 font-lock-variable-name-face))))
 
 ;;;###autoload
-(defun ballerina-mode-run-tests ()
+(defun ballerina-mode-test ()
   "Run test suite in Ballerina project"
   (interactive)
   (let ((user-input (read-string "Enter test selection (leave empty to run all tests): ")))
@@ -139,6 +140,20 @@
 
 ;;;###autoload
 (define-derived-mode ballerina-mode prog-mode "Ballerina"
+(defun ballerina-mode-run ()
+  "Run current ballerina file"
+  (interactive)
+  (let ((file-name (buffer-file-name)))
+    (compile (format "bal run %s" file-name))))
+
+;;;###autoload
+(defun ballerina-mode-build ()
+  "Build current ballerina project"
+  (interactive)
+  (compile "bal build"))
+
+;;;###autoload
+(define-derived-mode ballerina-mode c-mode "Ballerina"
    "Ballerina mode is a major mode for editing ballerina files."
    ;; Syntax highlighting
    :syntax-table ballerina-mode-syntax-table
