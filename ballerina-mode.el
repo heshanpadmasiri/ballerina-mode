@@ -139,7 +139,6 @@
       (compile (format "bal test --tests %s" user-input)))))
 
 ;;;###autoload
-(define-derived-mode ballerina-mode prog-mode "Ballerina"
 (defun ballerina-mode-run ()
   "Run current ballerina file"
   (interactive)
@@ -153,7 +152,7 @@
   (compile "bal build"))
 
 ;;;###autoload
-(define-derived-mode ballerina-mode c-mode "Ballerina"
+(define-derived-mode ballerina-mode prog-mode "Ballerina"
    "Ballerina mode is a major mode for editing ballerina files."
    ;; Syntax highlighting
    :syntax-table ballerina-mode-syntax-table
