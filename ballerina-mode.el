@@ -152,7 +152,7 @@
   (compile "bal build"))
 
 ;;;###autoload
-(define-derived-mode ballerina-mode prog-mode "Ballerina"
+(define-derived-mode ballerina-mode c-mode "Ballerina"
    "Ballerina mode is a major mode for editing ballerina files."
    ;; Syntax highlighting
    :syntax-table ballerina-mode-syntax-table
