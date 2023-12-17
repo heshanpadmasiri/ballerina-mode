@@ -153,15 +153,18 @@
 
 ;;;###autoload
 (define-derived-mode ballerina-mode c-mode "Ballerina"
-   "Ballerina mode is a major mode for editing ballerina files."
-   ;; Syntax highlighting
-   :syntax-table ballerina-mode-syntax-table
-   ;; keybindings
-   ;; (define-key ballerina-mode-map (kbd "C-c C-f") 'ballerina-mode-command)
-   ;; Fonts
-   (setq font-lock-defaults '(ballerina-build-font-lock-keywords))   ;; Fonts
-   (setq-local indent-tabs-mode nil) ; use spaces for indentation
-   (setq-local tab-width 4)) ; tabwidth 4 spaces
+  "Ballerina mode is a major mode for editing ballerina files."
+  ;; Syntax highlighting
+  :syntax-table ballerina-mode-syntax-table
+  ;; keybindings
+  ;; (define-key ballerina-mode-map (kbd "C-c C-f") 'ballerina-mode-command)
+  ;; Fonts
+  (setq font-lock-defaults '(ballerina-build-font-lock-keywords))   ;; Fonts
+  (setq-local indent-tabs-mode nil) ; use spaces for indentation
+  (setq-local tab-width 4) ; tabwidth 4 spaces
+  ;; comments
+  (setq-local comment-start "//")
+  (setq-local comment-end ""))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.bal\\'" . ballerina-mode))
