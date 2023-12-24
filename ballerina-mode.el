@@ -174,6 +174,15 @@
   (interactive)
   (compile "bal build"))
 
+(defvar ballerina-mode-map
+  (let ((map (make-sparse-keymap)))
+    (define-key map (kbd "C-c C-b") 'ballerina-mode-build)
+    (define-key map (kbd "C-c C-f") 'ballerina-format-buffer)
+    (define-key map (kbd "C-c C-r") 'ballerina-mode-run)
+    (define-key map (kbd "C-c C-t") 'ballerina-mode-test)
+    map)
+  "Keymap for ballerina major mode.")
+
 ;;;###autoload
 (define-derived-mode ballerina-mode c-mode "Ballerina"
   "Ballerina mode is a major mode for editing ballerina files."
