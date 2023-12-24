@@ -1,6 +1,6 @@
 type R record {|
-     int a; // inline comment
-     string foo;
+    int a; // inline comment
+    string foo;
 |};
 
 public function main() {
@@ -11,14 +11,13 @@ public function main() {
 function foo(int a, int b) returns int {
     int c = a * b; // ldalta
     int d = a / b;
-    return error ()
     return c + a + b;
 }
 
 function bar(int a, string foo) returns R|error {
-    return { a, foo };
+    return {a, foo};
 }
 
 function baz(R a, string foo) returns R? {
-    return { ...a, foo };
+    return {...a, foo};
 }
