@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: ballerina languages
 ;; Homepage: https://github.com/heshanpadmasiri/ballerina-mode
-;; Package-Requires: ((emacs "24.3"))
+;; Package-Requires: ((emacs "24.3") (reformatter "0.6"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -18,7 +18,7 @@
 ;; This file implements a major mode for editing ballerina code
 ;;
 ;;; Code:
-
+(require 'reformatter)
 (defconst ballerina-mode-basic-types
   '("any"
     "anydata"
@@ -85,6 +85,29 @@
     "var"
     "where"
     "while")  "All keywords in the ballerina language.  Used for font locking.")
+
+;; TODO: currently does nothing (mostly to shutup copilot)
+(defcustom ballerina-indent-offset 4
+  "Indent ballerina code by this number of spaces."
+  :type 'integer
+  :group 'ballerina-mode
+  :safe #'integerp)
+
+(defcustom ballerina-format-on-save t
+  "Format buffers before saving using bal format."
+  :type 'boolean
+  :safe #'booleanp
+  :group 'ballerina-mode)
+
+;; FIXME: this is not doing exactly what we need since ballerina formatter is not reading from stdin
+(reformatter-define ballerina-format
+  :program "bal"
+  :args '("format")
+  :group 'ballerina-mode)
+
+;;;###autoload (autoload 'ballerina-format-buffer "current-file" nil t)
+;;;###autoload (autoload 'ballerina-format-region "current-file" nil t)
+;;;###autoload (autoload 'ballerina-format-on-save-mode "current-file" nil t)
 
 (defconst ballerina-identifier-regexp "[[:word:][:multibyte:]]+")
 (defconst ballerina-type-regexp "[[:word:][:multibyte:]|&?]+")
