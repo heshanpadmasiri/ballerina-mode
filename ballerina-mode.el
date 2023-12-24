@@ -5,7 +5,7 @@
 ;; Author: Heshan Padmasiri <hpheshan@gmail.com>
 ;; Maintainer: Heshan Padmasiri <hpheshan@gmail.com>
 ;; Created: July 22, 2023
-;; Modified: July 22, 2023
+;; Modified: December 24, 2023
 ;; Version: 0.0.1
 ;; Keywords: ballerina languages
 ;; Homepage: https://github.com/heshanpadmasiri/ballerina-mode
@@ -105,6 +105,9 @@
   :args '("format")
   :group 'ballerina-mode)
 
+(defconst ballerina-electric-indent-chars
+  '(?\; ?, ?\) ?\] ?}))
+
 ;;;###autoload (autoload 'ballerina-format-buffer "current-file" nil t)
 ;;;###autoload (autoload 'ballerina-format-region "current-file" nil t)
 ;;;###autoload (autoload 'ballerina-format-on-save-mode "current-file" nil t)
@@ -196,7 +199,12 @@
   (setq-local tab-width 4) ; tabwidth 4 spaces
   ;; comments
   (setq-local comment-start "//")
-  (setq-local comment-end ""))
+  (setq-local comment-end "")
+  ;; indentation
+  (setq-local electric-indent-chars
+    (append ballerina-electric-indent-chars
+      (and (boundp 'electric-indent-chars)
+        electric-indent-chars))))
 
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.bal\\'" . ballerina-mode))
