@@ -21,70 +21,70 @@
 (require 'reformatter)
 (defconst ballerina-mode-basic-types
   '("any"
-    "anydata"
-    "boolean"
-    "byte"
-    "decimal"
-    "error"
-    "float"
-    "function"
-    "future"
-    "handle"
-    "int"
-    "json"
-    "map"
-    "never"
-    "nil"
-    "object"
-    "object"
-    "readonly"
-    "record"
-    "stream"
-    "string"
-    "table"
-    "typedesc") "Basic types in ballerina language used for font locking.")
+     "anydata"
+     "boolean"
+     "byte"
+     "decimal"
+     "error"
+     "float"
+     "function"
+     "future"
+     "handle"
+     "int"
+     "json"
+     "map"
+     "never"
+     "nil"
+     "object"
+     "object"
+     "readonly"
+     "record"
+     "stream"
+     "string"
+     "table"
+     "typedesc") "Basic types in ballerina language used for font locking.")
 
 (defconst ballerina-mode-keywords
   '("ascending"
-    "break"
-    "by"
-    "check"
-    "checkpanic"
-    "class"
-    "client"
-    "conflict"
-    "const"
-    "descending"
-    "distinct"
-    "else"
-    "equals"
-    "final"
-    "foreach"
-    "from"
-    "function"
-    "if"
-    "import"
-    "in"
-    "is"
-    "isolated"
-    "join"
-    "let"
-    "limit"
-    "match"
-    "on"
-    "order"
-    "outer"
-    "private"
-    "public"
-    "remote"
-    "return"
-    "returns"
-    "select"
-    "service"
-    "type"
-    "var"
-    "where"
-    "while")  "All keywords in the ballerina language.  Used for font locking.")
+     "break"
+     "by"
+     "check"
+     "checkpanic"
+     "class"
+     "client"
+     "conflict"
+     "const"
+     "descending"
+     "distinct"
+     "else"
+     "equals"
+     "final"
+     "foreach"
+     "from"
+     "function"
+     "if"
+     "import"
+     "in"
+     "is"
+     "isolated"
+     "join"
+     "let"
+     "limit"
+     "match"
+     "on"
+     "order"
+     "outer"
+     "private"
+     "public"
+     "remote"
+     "return"
+     "returns"
+     "select"
+     "service"
+     "type"
+     "var"
+     "where"
+     "while")  "All keywords in the ballerina language.  Used for font locking.")
 
 ;; TODO: currently does nothing (mostly to shutup copilot)
 (defcustom ballerina-indent-offset 4
@@ -114,8 +114,8 @@
 (defconst ballerina-func-regexp (concat "\\_<function\\_>\\s *\\(" ballerina-identifier-regexp "\\)"))
 (defconst ballerina-return-type-regexp (concat "\\_<returns\\_>\\s *\\(" ballerina-type-regexp "\\)"))
 (defconst ballerina-var-type-regexp (concat "\\(" ballerina-type-regexp "\\)"
-                                            "[[:space:]][[:space:]]*"
-                                            "\\(" ballerina-identifier-regexp"\\)"))
+                                      "[[:space:]][[:space:]]*"
+                                      "\\(" ballerina-identifier-regexp"\\)"))
 
 (defvar ballerina-mode-syntax-table
   (let ((table (make-syntax-table)))
@@ -145,12 +145,12 @@
 
 (defun ballerina-build-font-lock-keywords ()
   (append
-   `((, (concat "\\_<" (regexp-opt ballerina-mode-basic-types t) "\\_>") . font-lock-type-face)
-     (, (concat "\\_<" (regexp-opt ballerina-mode-keywords t) "\\_>") . font-lock-keyword-face)
-     (, ballerina-func-regexp 1 font-lock-function-name-face)
-     (, ballerina-return-type-regexp 1 font-lock-type-face)
-     (, ballerina-var-type-regexp 1 font-lock-type-face)
-     (, ballerina-var-type-regexp 2 font-lock-variable-name-face))))
+    `((, (concat "\\_<" (regexp-opt ballerina-mode-basic-types t) "\\_>") . font-lock-type-face)
+       (, (concat "\\_<" (regexp-opt ballerina-mode-keywords t) "\\_>") . font-lock-keyword-face)
+       (, ballerina-func-regexp 1 font-lock-function-name-face)
+       (, ballerina-return-type-regexp 1 font-lock-type-face)
+       (, ballerina-var-type-regexp 1 font-lock-type-face)
+       (, ballerina-var-type-regexp 2 font-lock-variable-name-face))))
 
 ;;;###autoload
 (defun ballerina-mode-test ()
@@ -158,7 +158,7 @@
   (interactive)
   (let ((user-input (read-string "Enter test selection (leave empty to run all tests): ")))
     (if (string-empty-p user-input)
-        (compile "bal test")
+      (compile "bal test")
       (compile (format "bal test --tests %s" user-input)))))
 
 ;;;###autoload
