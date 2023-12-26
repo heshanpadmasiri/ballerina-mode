@@ -163,6 +163,7 @@
 (defvar-local ballerina-buffer-project nil)
 
 (defun ballerina-update-buffer-project ()
+  "Update the project directory."
   (setq-local ballerina-buffer-project (ballerina-find-project-directory)))
 
 (defun ballerina-find-project-directory ()
@@ -180,6 +181,7 @@
     current-dir))
 
 (defun ballerina--compile (format-string &rest args)
+  "Run compile command at the project root directory."
   (when (null ballerina-buffer-project)
     (ballerina-update-buffer-project))
   (let ((default-directory
@@ -190,7 +192,7 @@
 
 ;;;###autoload
 (defun ballerina-mode-test ()
-  "Run test suite in Ballerina project"
+  "Run test suite in Ballerina project."
   (interactive)
   (let ((user-input (read-string "Enter test selection (leave empty to run all tests): ")))
     (if (string-empty-p user-input)
@@ -199,14 +201,14 @@
 
 ;;;###autoload
 (defun ballerina-mode-run ()
-  "Run current ballerina file"
+  "Run current ballerina file."
   (interactive)
   (let ((file-name (buffer-file-name)))
     (ballerina--compile "%s run %s" ballerina-bal-bin file-name)))
 
 ;;;###autoload
 (defun ballerina-mode-build ()
-  "Build current ballerina project"
+  "Build current ballerina project."
   (interactive)
   (ballerina--compile "%s build" ballerina-bal-bin))
 
