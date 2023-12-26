@@ -9,7 +9,7 @@
 ;; Version: 0.0.1
 ;; Keywords: ballerina languages
 ;; Homepage: https://github.com/heshanpadmasiri/ballerina-mode
-;; Package-Requires: ((emacs "24.3") (reformatter "0.6"))
+;; Package-Requires: ((emacs "24.3"))
 ;;
 ;; This file is not part of GNU Emacs.
 ;;
@@ -18,7 +18,6 @@
 ;; This file implements a major mode for editing ballerina code
 ;;
 ;;; Code:
-(require 'reformatter)
 (defconst ballerina-mode-basic-types
   '("any"
     "anydata"
@@ -99,18 +98,21 @@
   :safe #'booleanp
   :group 'ballerina-mode)
 
-;; FIXME: this is not doing exactly what we need since ballerina formatter is not reading from stdin
-(reformatter-define ballerina-format
-  :program "bal"
-  :args '("format")
-  :group 'ballerina-mode)
-
 (defconst ballerina-electric-indent-chars
   '(?\; ?, ?\) ?\] ?}))
 
-;;;###autoload (autoload 'ballerina-format-buffer "current-file" nil t)
-;;;###autoload (autoload 'ballerina-format-region "current-file" nil t)
-;;;###autoload (autoload 'ballerina-format-on-save-mode "current-file" nil t)
+;;;###autoload
+(defun ballerina-format-buffer ()
+  "Format the current Ballerina buffer using `bal format` and reload the buffer."
+  (interactive)
+  (when (and buffer-file-name (file-exists-p buffer-file-name))
+    (let ((default-directory (file-name-directory buffer-file-name))
+          (output-buffer (generate-new-buffer "*bal-format-output*")))
+      (call-process "bal" nil output-buffer nil "format" buffer-file-name)
+      (message "%s" (with-current-buffer output-buffer (buffer-string)))
+      (kill-buffer output-buffer))
+    ;; Reload the buffer
+    (revert-buffer t t)))
 
 (defconst ballerina-identifier-regexp "[[:word:][:multibyte:]]+")
 (defconst ballerina-type-regexp "[[:word:][:multibyte:]|&?]+")
@@ -244,5 +246,15 @@
 ;;;###autoload
 (add-to-list 'auto-mode-alist '("\\.bal\\'" . ballerina-mode))
 
+;;; Hooks
+(defun ballerina-before-save ()
+  "Hook to run format before save."
+  (when ballerina-format-on-save
+    (condition-case e
+        (ballerina-format-buffer)
+      (message (format "ballerina-before-save-hook: %S %S"
+                     (car e)
+                     (cdr e))))))
+(add-hook 'after-save-hook 'ballerina-before-save)
 (provide 'ballerina-mode)
 ;;; ballerina-mode.el ends here
