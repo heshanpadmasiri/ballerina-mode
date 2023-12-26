@@ -160,8 +160,33 @@
   :type 'string
   :group 'ballerina-mode)
 
+(defvar-local ballerina-buffer-project nil)
+
+(defun ballerina-update-buffer-project ()
+  (setq-local ballerina-buffer-project (ballerina-find-project-directory)))
+
+(defun ballerina-find-project-directory ()
+  "Find the nearest directory containing a Ballerina.toml file."
+  (let ((current-dir (file-name-directory buffer-file-name))
+        (continue t))
+    (while (and current-dir continue)
+      (let ((toml-path (expand-file-name "Ballerina.toml" current-dir)))
+        (if (file-exists-p toml-path)
+            (setq continue nil)
+          (let ((parent-dir (file-truename (concat current-dir "../"))))
+            (if (string= current-dir parent-dir)
+                (setq current-dir nil)
+              (setq current-dir parent-dir))))))
+    current-dir))
+
 (defun ballerina--compile (format-string &rest args)
-  (compile (apply #'format format-string args)))
+  (when (null ballerina-buffer-project)
+    (ballerina-update-buffer-project))
+  (let ((default-directory
+         (or (and ballerina-buffer-project
+                  (file-name-directory ballerina-buffer-project))
+             default-directory)))
+    (compile (apply #'format format-string args))))
 
 ;;;###autoload
 (defun ballerina-mode-test ()
